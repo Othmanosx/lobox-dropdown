@@ -29,7 +29,7 @@ const useStyles = createUseStyles((theme) => ({
   dropdownContent: {
     position: "absolute",
     minWidth: "100%",
-    boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
+    boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.12)",
     zIndex: 1,
     marginTop: "0.5rem",
     borderRadius: "1rem",
