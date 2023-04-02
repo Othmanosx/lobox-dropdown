@@ -1,9 +1,9 @@
 import React from "react"
 import { createUseStyles } from "react-jss"
+import CheckIcon from "../CheckIcon"
 
 const useStyles = createUseStyles({
   dropdownItem: {
-    color: "black",
     padding: "12px 16px",
     display: "flex",
     alignItems: "center",
@@ -11,14 +11,19 @@ const useStyles = createUseStyles({
     border: "none",
     textAlign: "left",
     cursor: "pointer",
+    color: "grey",
+    fontSize: "1rem",
+    borderRadius: 10,
+    margin: 8,
     backgroundColor: "transparent",
-    width: "100%",
+    width: "fill-available",
     "&:hover": {
       backgroundColor: "#ddd",
     },
   },
   selected: {
-    backgroundColor: "#ddd",
+    backgroundColor: "#DADEFF",
+    color: "#738ad2",
   },
   checkMark: {
     marginLeft: "8px",
@@ -48,7 +53,11 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
       aria-selected={isSelected}
     >
       {item}
-      {isSelected && <span className={classes.checkMark}>&#x2713;</span>}
+      {isSelected && (
+        <span className={classes.checkMark}>
+          <CheckIcon />
+        </span>
+      )}
     </button>
   )
 }

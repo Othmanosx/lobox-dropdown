@@ -10,12 +10,27 @@ const useStyles = createUseStyles({
     position: "relative",
     display: "inline-block",
   },
+  input: {
+    padding: "0.5rem",
+    fontSize: "1rem",
+    borderRadius: 10,
+    minWidth: 250,
+    border: "2px solid #738ad2",
+    "&:focus": {
+      outline: "3px solid #DADEFF",
+    },
+  },
   dropdownContent: {
     position: "absolute",
-    backgroundColor: "#f1f1f1",
-    minWidth: "160px",
+    minWidth: "100%",
     boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
     zIndex: 1,
+
+    marginTop: 8,
+    borderRadius: 10,
+    overflowY: "auto",
+    maxHeight: 300,
+    overflowX: "hidden",
   },
 })
 interface DropdownProps {
@@ -67,6 +82,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         onKeyDown={handleKeyDown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
+        className={classes.input}
         placeholder={placeholder}
       />
       <ArrowIcon isOpen={isOpen} onClick={toggle} />

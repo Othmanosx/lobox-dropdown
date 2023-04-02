@@ -7,9 +7,9 @@ type Props = {
 const useStyles = createUseStyles({
   arrow: {
     position: "absolute",
-    right: 8,
+    right: 16,
     top: "50%",
-    width: 10,
+    width: 12,
     transform: "translateY(-50%)",
   },
   arrowUp: {
