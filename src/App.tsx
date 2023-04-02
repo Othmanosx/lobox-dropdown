@@ -12,9 +12,8 @@ function App() {
     <div>
       <CustomDropdown
         items={["Item 1", "Item 2", "Item 3"]}
-        placeholder="Select an item"
+        placeholder="Type or Select an item"
         onSelect={(item) => console.log("Selected item:", item)}
-        allowAddNew={true}
       />
     </div>
   )

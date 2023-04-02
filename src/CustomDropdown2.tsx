@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react"
 import { createUseStyles } from "react-jss"
-import ArrowIcon from "./assets/ArrowIcon"
+import ArrowIcon from "./components/ArrowIcon"
+import useDropdown from "./hooks/useDropdown"
+import useOutsideClick from "./hooks/useOutsideClick"
+import DropdownItem from "./components/Dropdown/DropdownItem"
 
 const useStyles = createUseStyles({
   dropdown: {
@@ -14,27 +17,6 @@ const useStyles = createUseStyles({
     boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
     zIndex: 1,
   },
-  dropdownItem: {
-    color: "black",
-    padding: "12px 16px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    border: "none",
-    textAlign: "left",
-    cursor: "pointer",
-    backgroundColor: "transparent",
-    width: "100%",
-    "&:hover": {
-      backgroundColor: "#ddd",
-    },
-  },
-  selected: {
-    backgroundColor: "#ddd",
-  },
-  checkMark: {
-    marginLeft: "8px",
-  },
 })
 interface DropdownProps {
   items?: string[]
@@ -47,12 +29,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   placeholder = "",
   onSelect,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [items, setItems] = useState<string[]>(initialItems)
   const [inputValue, setInputValue] = useState<string>("")
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const classes = useStyles()
+
+  const { isOpen, open, close, toggle } = useDropdown()
+  useOutsideClick(wrapperRef, close)
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item)
@@ -68,27 +52,11 @@ const Dropdown: React.FC<DropdownProps> = ({
       handleItemClick(inputValue)
       e.preventDefault()
     } else if (e.key === "Escape") {
-      setIsOpen(false)
+      close()
     } else if (e.key === "Tab" || e.key === " " || e.key === "Enter") {
-      setIsOpen(true)
+      open()
     }
   }
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      wrapperRef.current &&
-      !wrapperRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
 
   return (
     <div className={classes.dropdown} ref={wrapperRef}>
@@ -96,30 +64,22 @@ const Dropdown: React.FC<DropdownProps> = ({
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        onClick={() => setIsOpen(true)}
+        onClick={() => open()}
         onKeyDown={handleKeyDown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         placeholder={placeholder}
       />
-      <ArrowIcon isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+      <ArrowIcon isOpen={isOpen} onClick={toggle} />
       {isOpen && (
         <div className={classes.dropdownContent} role="listbox">
           {items.map((item, index) => (
-            <button
+            <DropdownItem
               key={index}
+              item={item}
+              isSelected={item === selectedItem}
               onClick={() => handleItemClick(item)}
-              className={`${classes.dropdownItem} ${
-                item === selectedItem ? classes.selected : ""
-              }`}
-              role="option"
-              aria-selected={item === selectedItem}
-            >
-              {item}
-              {item === selectedItem && (
-                <span className={classes.checkMark}>&#x2713;</span>
-              )}
-            </button>
+            />
           ))}
         </div>
       )}
