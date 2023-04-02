@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import { createUseStyles } from "react-jss"
-import ArrowIcon from "./components/ArrowIcon"
-import useDropdown from "./hooks/useDropdown"
-import useOutsideClick from "./hooks/useOutsideClick"
-import DropdownItem from "./components/Dropdown/DropdownItem"
+import ArrowIcon from "../ArrowIcon"
+import useDropdown from "../../hooks/useDropdown"
+import useOutsideClick from "../../hooks/useOutsideClick"
+import DropdownItem from "./DropdownItem"
 
 const useStyles = createUseStyles({
   dropdown: {
@@ -51,11 +51,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       setItems([...items, inputValue])
       handleItemClick(inputValue)
       e.preventDefault()
-    } else if (e.key === "Escape") {
-      close()
-    } else if (e.key === "Tab" || e.key === " " || e.key === "Enter") {
-      open()
+      return
     }
+    if (e.key === "Escape") close()
+    if (e.key === "Tab" || e.key === " " || e.key === "Enter") open()
   }
 
   return (
@@ -73,9 +72,9 @@ const Dropdown: React.FC<DropdownProps> = ({
       <ArrowIcon isOpen={isOpen} onClick={toggle} />
       {isOpen && (
         <div className={classes.dropdownContent} role="listbox">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <DropdownItem
-              key={index}
+              key={item}
               item={item}
               isSelected={item === selectedItem}
               onClick={() => handleItemClick(item)}
