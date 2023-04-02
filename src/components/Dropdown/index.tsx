@@ -9,12 +9,16 @@ const useStyles = createUseStyles({
   dropdown: {
     position: "relative",
     display: "inline-block",
+    width: "100%",
+    minWidth: 250,
+    maxWidth: 400,
   },
   input: {
     padding: "0.5rem",
+    paddingRight: "2rem",
     fontSize: "1rem",
-    borderRadius: 10,
-    minWidth: 250,
+    borderRadius: 12,
+    width: "fill-available",
     border: "2px solid #738ad2",
     "&:focus": {
       outline: "3px solid #DADEFF",
@@ -25,9 +29,8 @@ const useStyles = createUseStyles({
     minWidth: "100%",
     boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
     zIndex: 1,
-
     marginTop: 8,
-    borderRadius: 10,
+    borderRadius: 16,
     overflowY: "auto",
     maxHeight: 300,
     overflowX: "hidden",

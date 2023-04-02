@@ -53,11 +53,7 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
       aria-selected={isSelected}
     >
       {item}
-      {isSelected && (
-        <span className={classes.checkMark}>
-          <CheckIcon />
-        </span>
-      )}
+      {isSelected && <CheckIcon />}
     </button>
   )
 }
