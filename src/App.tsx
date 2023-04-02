@@ -9,10 +9,12 @@ const theme: DefaultTheme = {
 }
 
 function App() {
+  const items = ["Education 📚", "Sport ⚽️", "Games 🎮"]
+
   return (
     <ThemeProvider theme={theme}>
       <Dropdown
-        items={["Education 📚", "Sport ⚽️", "Games 🎮"]}
+        items={items}
         placeholder="Type or select item"
         onSelect={(item) => console.log("Selected item:", item)}
       />
