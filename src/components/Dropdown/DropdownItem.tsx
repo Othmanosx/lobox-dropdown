@@ -2,7 +2,7 @@ import React from "react"
 import { createUseStyles } from "react-jss"
 import CheckIcon from "../CheckIcon"
 
-const useStyles = createUseStyles({
+const useStyles = createUseStyles((theme) => ({
   dropdownItem: {
     padding: "12px 16px",
     display: "flex",
@@ -11,24 +11,21 @@ const useStyles = createUseStyles({
     border: "none",
     textAlign: "left",
     cursor: "pointer",
-    color: "grey",
+    color: theme.colorGrey,
     fontSize: "1rem",
     borderRadius: 10,
-    margin: 8,
+    margin: "0.5rem",
     backgroundColor: "transparent",
     width: "fill-available",
     "&:hover": {
-      backgroundColor: "#ddd",
+      backgroundColor: theme.colorHover,
     },
   },
   selected: {
-    backgroundColor: "#DADEFF",
-    color: "#738ad2",
+    backgroundColor: theme.colorAccent,
+    color: theme.colorPrimary,
   },
-  checkMark: {
-    marginLeft: "8px",
-  },
-})
+}))
 
 interface DropdownItemProps {
   item: string

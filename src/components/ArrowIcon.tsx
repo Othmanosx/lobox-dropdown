@@ -9,7 +9,8 @@ const useStyles = createUseStyles({
     position: "absolute",
     right: 16,
     top: "50%",
-    width: 12,
+    width: 13,
+    cursor: "pointer",
     transform: "translateY(-50%)",
   },
   arrowUp: {

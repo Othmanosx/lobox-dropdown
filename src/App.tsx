@@ -1,14 +1,22 @@
-import CustomDropdown from "./components/Dropdown"
+import { DefaultTheme, ThemeProvider } from "react-jss"
+import Dropdown from "components/Dropdown"
+
+const theme: DefaultTheme = {
+  colorPrimary: "#738ad2",
+  colorAccent: "#DADEFF",
+  colorHover: "#e7e7e7",
+  colorGrey: "grey",
+}
 
 function App() {
   return (
-    <div>
-      <CustomDropdown
-        items={["Item 1", "Item 2", "Item 3"]}
-        placeholder="Type or Select an item"
+    <ThemeProvider theme={theme}>
+      <Dropdown
+        items={["Education 📚", "Sport ⚽️", "Games 🎮"]}
+        placeholder="Type or select item"
         onSelect={(item) => console.log("Selected item:", item)}
       />
-    </div>
+    </ThemeProvider>
   )
 }
 

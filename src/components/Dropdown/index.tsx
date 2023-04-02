@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react"
 import { createUseStyles } from "react-jss"
 import ArrowIcon from "../ArrowIcon"
-import useDropdown from "../../hooks/useDropdown"
-import useOutsideClick from "../../hooks/useOutsideClick"
+import useDropdown from "hooks/useDropdown"
+import useOutsideClick from "hooks/useOutsideClick"
 import DropdownItem from "./DropdownItem"
 
-const useStyles = createUseStyles({
+const useStyles = createUseStyles((theme) => ({
   dropdown: {
     position: "relative",
     display: "inline-block",
@@ -14,14 +14,16 @@ const useStyles = createUseStyles({
     maxWidth: 400,
   },
   input: {
-    padding: "0.5rem",
+    padding: "0.75rem",
     paddingRight: "2rem",
     fontSize: "1rem",
     borderRadius: 12,
     width: "fill-available",
-    border: "2px solid #738ad2",
+    border: "2px solid",
+    borderColor: theme.colorPrimary,
     "&:focus": {
-      outline: "3px solid #DADEFF",
+      outline: "3px solid",
+      outlineColor: theme.colorAccent,
     },
   },
   dropdownContent: {
@@ -29,13 +31,13 @@ const useStyles = createUseStyles({
     minWidth: "100%",
     boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
     zIndex: 1,
-    marginTop: 8,
-    borderRadius: 16,
+    marginTop: "0.5rem",
+    borderRadius: "1rem",
     overflowY: "auto",
     maxHeight: 300,
     overflowX: "hidden",
   },
-})
+}))
 interface DropdownProps {
   items?: string[]
   placeholder?: string
