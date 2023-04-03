@@ -5,7 +5,6 @@ import CheckIcon from "../CheckIcon"
 const useStyles = createUseStyles((theme) => ({
   dropdownItem: {
     padding: "12px 16px",
-    display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     border: "none",
@@ -14,6 +13,7 @@ const useStyles = createUseStyles((theme) => ({
     color: theme.colorGrey,
     fontSize: "1rem",
     borderRadius: 10,
+    display: "inline-flex",
     margin: "0.5rem",
     backgroundColor: "transparent",
     width: "fill-available",

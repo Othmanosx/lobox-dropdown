@@ -4,6 +4,7 @@ import ArrowIcon from "../ArrowIcon"
 import useDropdown from "hooks/useDropdown"
 import useOutsideClick from "hooks/useOutsideClick"
 import DropdownItem from "./DropdownItem"
+import { FixedSizeList as List } from "react-window"
 
 const useStyles = createUseStyles((theme) => ({
   dropdown: {
@@ -77,6 +78,23 @@ const Dropdown: React.FC<DropdownProps> = ({
     if (e.key === "Tab" || e.key === " " || e.key === "Enter") open()
   }
 
+  const ListItem = ({
+    index,
+    style,
+  }: {
+    index: number
+    style: React.CSSProperties
+  }) => (
+    <div style={style}>
+      <DropdownItem
+        key={items[index]}
+        item={items[index]}
+        isSelected={items[index] === selectedItem}
+        onClick={() => handleItemClick(items[index])}
+      />
+    </div>
+  )
+
   return (
     <div className={classes.dropdown} ref={wrapperRef}>
       <input
@@ -93,14 +111,14 @@ const Dropdown: React.FC<DropdownProps> = ({
       <ArrowIcon isOpen={isOpen} onClick={toggle} />
       {isOpen && (
         <div className={classes.dropdownContent} role="listbox">
-          {items.map((item) => (
-            <DropdownItem
-              key={item}
-              item={item}
-              isSelected={item === selectedItem}
-              onClick={() => handleItemClick(item)}
-            />
-          ))}
+          <List
+            height={Math.min(300, items.length * 50)} // list height
+            itemCount={items.length}
+            itemSize={44} // item height
+            width="100%"
+          >
+            {ListItem}
+          </List>
         </div>
       )}
     </div>
