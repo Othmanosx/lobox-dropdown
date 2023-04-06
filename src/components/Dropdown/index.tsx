@@ -43,16 +43,18 @@ interface DropdownProps {
   items?: string[]
   placeholder?: string
   onSelect?: (selectedItem: string) => void
+  defaultValue: string
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   items: initialItems = [],
   placeholder = "",
   onSelect,
+  defaultValue,
 }) => {
   const [items, setItems] = useState<string[]>(initialItems)
-  const [inputValue, setInputValue] = useState<string>("")
-  const [selectedItem, setSelectedItem] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState<string>(defaultValue)
+  const [selectedItem, setSelectedItem] = useState<string | null>(defaultValue)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const classes = useStyles()
 
@@ -71,6 +73,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     if (e.key === "Enter" && inputValue && !items.includes(inputValue)) {
       setItems([...items, inputValue])
       handleItemClick(inputValue)
+      setInputValue("")
       e.preventDefault()
       return
     }
@@ -101,7 +104,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        onClick={() => open()}
+        onClick={open}
         onKeyDown={handleKeyDown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}

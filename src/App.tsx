@@ -17,6 +17,7 @@ function App() {
         items={items}
         placeholder="Type or select item"
         onSelect={(item) => console.log("Selected item:", item)}
+        defaultValue={items[0]}
       />
     </ThemeProvider>
   )
